@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+    <meta charset="UTF-8">
     <link href="styles.css" rel="stylesheet" />
     <title>Weather App</title>
 </head>
@@ -9,9 +10,10 @@
 <body>
     <main>
         <section id="weather-wrapper">
-            <h1>Weather App</h1>
+            <!-- <h1>Weather App</h1> -->
+            <h3>Enter a City Name</h3>
             <div id="weather-search">
-                <input id="search" type="text" placeholder="Search by city" />
+                <input id="search" type="text" placeholder="E.g, Seattle, New York" />
                 <input id="submit" type="submit" onclick="fetchWeather()" value="Search" />
             </div>
             <div id="weather-data" style="display: none;"></div>
