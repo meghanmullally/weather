@@ -27,6 +27,10 @@ h1 {
     margin-bottom: 20px;
 }
 
+h3 {
+    margin-bottom: 16px;
+}
+
 #weather-wrapper {
     display: flex;
     flex-direction: column;
@@ -37,6 +41,22 @@ h1 {
     display: flex;
     width: 50%;
     gap: 4px;
+}
+
+#weather-data {
+    display: none;
+    background-color: rgba(255, 255, 255, 0.85);
+    border-radius: 5px;
+    padding: 1.5em;
+    margin-top: 20px;
+    text-align: center;
+    align-items: center;
+    gap: 12px;
+}
+
+#weather-data>img {
+    border-radius: 50%;
+    background-color: lightskyblue;
 }
 
 #search {
@@ -55,3 +75,33 @@ h1 {
     width: 5em;
     cursor: pointer;
 }
+
+.days-forecast h2 {
+    margin: 20px 0;
+    font-size: 1.5rem;
+}
+
+.days-forecast .weather-cards {
+    display: flex;
+    gap: 20px;
+}
+
+.weather-cards .card {
+    color: #fff;
+    padding: 18px 16px;
+    list-style: none;
+    width: calc(100% / 5);
+    background: #6C757D;
+    border-radius: 5px;
+}
+
+.weather-cards .card h3 {
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.weather-cards .card img {
+    max-width: 70px;
+    margin: 5px 0 -12px 0;
+}
+
