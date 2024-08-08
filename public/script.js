@@ -2,27 +2,26 @@ async function fetchWeather() {
     let searchInput = document.getElementById("search").value;
     const weatherDataSection = document.getElementById("weather-data");
     weatherDataSection.style.display = "block";
-    
-    require('dotenv').config();
-    const apiKey = process.env.WEATHER_API_KEY;
+
+    /* ------ FETCH API KEY FROM SERVER -----------*/
+    const apiKeyResponse = await fetch('/api-key');
+    const apiKeyData = await apiKeyResponse.json();
+    const apiKey = apiKeyData.apiKey;
 
     /* ------ SEARCH INPUT & ERROR HANDLING -----------*/
     if (searchInput === "") {
         weatherDataSection.innerHTML = `
-      <div>
-      <h2>Empty Input!</h2>
-      <p>Please try again with a valid <u>city name</u>.</p>
-      </div>
-      `;
+            <div>
+                <h2>Empty Input!</h2>
+                <p>Please try again with a valid <u>city name</u>.</p>
+            </div>
+        `;
         return;
     }
 
     /* ------ API CALL LONG & LAT DATA -----------*/
-    async function getLonAndLat() {
-        const geocodeURL = `https://api.openweathermap.org/geo/1.0/direct?q=${searchInput.replace(
-            " ",
-            "%20"
-        )}&limit=1&appid=${apiKey}`;
+    async function getLonAndLat(apiKey) {
+        const geocodeURL = `https://api.openweathermap.org/geo/1.0/direct?q=${encodeURIComponent(searchInput)}&limit=1&appid=${apiKey}`;
         const response = await fetch(geocodeURL);
         if (!response.ok) {
             console.log("Bad response! ", response.status);
@@ -33,11 +32,11 @@ async function fetchWeather() {
         if (data.length === 0) {
             console.log("Something went wrong here.");
             weatherDataSection.innerHTML = `
-          <div>
-          <h2>Invalid Input: "${searchInput}"</h2>
-          <p>Please try again with a valid <u>city name</u>.</p>
-          </div>
-          `;
+                <div>
+                    <h2>Invalid Input: "${searchInput}"</h2>
+                    <p>Please try again with a valid <u>city name</u>.</p>
+                </div>
+            `;
             return null;
         } else {
             return data[0];
@@ -46,10 +45,16 @@ async function fetchWeather() {
 
     /* ------ API CALL WEATHER DATA -----------*/
     async function getWeatherData(lon, lat) {
-        const weatherURL = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=imperial&appid=${apiKey}`;
+        const weatherURL = `/weather?city=${encodeURIComponent(searchInput)}`;
         const response = await fetch(weatherURL);
         if (!response.ok) {
             console.log("Failed to fetch weather data");
+            const errorData = await response.json();
+            weatherDataSection.innerHTML = `
+                <div>
+                    <h2>Error: ${errorData.error}</h2>
+                </div>
+            `;
             return;
         }
 
@@ -59,17 +64,16 @@ async function fetchWeather() {
         const currentWeather = data.list[0];
         console.log("currentWeather", currentWeather);
         weatherDataSection.innerHTML = `
-      <img src="https://openweathermap.org/img/wn/${currentWeather.weather[0].icon}@2x.png" alt="${currentWeather.weather[0].description}"/>
-      <div>
-      <h2>${formatDate(new Date(currentWeather.dt_txt))}</h2>
-            <h2>${data.city.name}</h2>
-            <p><strong>Current Temperature:</strong> ${Math.round(currentWeather.main.temp)}°F</p>
-            <p><strong>Humidity:</strong> ${currentWeather.main.humidity}%</p>
-            <p><strong>Wind:</strong> ${currentWeather.wind.speed} m/s</p>
-            <p><strong>Description:</strong> ${currentWeather.weather[0].description
-            }</p>
-      </div>
-      `;
+            <img src="https://openweathermap.org/img/wn/${currentWeather.weather[0].icon}@2x.png" alt="${currentWeather.weather[0].description}"/>
+            <div>
+                <h2>${formatDate(new Date(currentWeather.dt_txt))}</h2>
+                <h2>${data.city.name}</h2>
+                <p><strong>Current Temperature:</strong> ${Math.round(currentWeather.main.temp)}°F</p>
+                <p><strong>Humidity:</strong> ${currentWeather.main.humidity}%</p>
+                <p><strong>Wind:</strong> ${currentWeather.wind.speed} m/s</p>
+                <p><strong>Description:</strong> ${currentWeather.weather[0].description}</p>
+            </div>
+        `;
 
         /* ------ DISPLAY 5-DAY WEATHER FORECAST -----------*/
         const forecastSection = document.createElement("div");
@@ -86,12 +90,12 @@ async function fetchWeather() {
             const dayCard = document.createElement("li");
             dayCard.className = "card";
             dayCard.innerHTML = `
-            <h3>${formatDate(new Date(forecast.dt_txt))}</h3>
-            <h6>Temp: ${Math.round(forecast.main.temp)}°F</h6>
-            <h6>Humidity: ${forecast.main.humidity}%</h6>
-            <h6>Wind: ${forecast.wind.speed} m/s</h6>
-            <h6>Description: ${forecast.weather[0].description}</h6>
-          `;
+                <h3>${formatDate(new Date(forecast.dt_txt))}</h3>
+                <h6>Temp: ${Math.round(forecast.main.temp)}°F</h6>
+                <h6>Humidity: ${forecast.main.humidity}%</h6>
+                <h6>Wind: ${forecast.wind.speed} m/s</h6>
+                <h6>Description: ${forecast.weather[0].description}</h6>
+            `;
             weatherCards.appendChild(dayCard);
         });
 
@@ -104,7 +108,7 @@ async function fetchWeather() {
     }
 
     document.getElementById("search").value = "";
-    const geocodeData = await getLonAndLat();
+    const geocodeData = await getLonAndLat(apiKey); // Pass apiKey here
     if (geocodeData) {
         getWeatherData(geocodeData.lon, geocodeData.lat);
     }
