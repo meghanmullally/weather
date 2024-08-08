@@ -13,13 +13,13 @@ body {
 }
 
 main {
-    background-color: rgb(245, 212, 229, 0.95);
+    background-color: rgba(245, 212, 229, 0.95);
     position: relative;
-    top: 30%;
-    border: 1px solid;
+    top: 10%;
     border-radius: 5px;
-    padding: 2em;
-    width: 45%;
+    padding: 2rem;
+    width: 90%;
+    max-width: 600px;
     margin: auto;
 }
 
@@ -39,22 +39,19 @@ h3 {
 
 #weather-search {
     display: flex;
-    width: 50%;
-    gap: 4px;
+    justify-content: center;
+    width: 100%;
 }
 
 #weather-data {
-    display: none;
     background-color: rgba(255, 255, 255, 0.85);
     border-radius: 5px;
     padding: 1.5em;
     margin-top: 20px;
-    text-align: center;
-    align-items: center;
-    gap: 12px;
+    /* text-align: center; */
 }
 
-#weather-data>img {
+#weather-data > img {
     border-radius: 50%;
     background-color: lightskyblue;
 }
@@ -70,30 +67,37 @@ h3 {
 
 #submit {
     border-radius: 0 5px 5px 0;
+    border-color: #6c757d98;
     padding: 8px;
     font-size: 16px;
-    width: 5em;
+    background-color: rgba(255, 255, 255, 0.85);
     cursor: pointer;
 }
 
 .days-forecast h2 {
+    flex-wrap: wrap;
+    justify-content: center;
     margin: 20px 0;
     font-size: 1.5rem;
 }
 
 .days-forecast .weather-cards {
     display: flex;
-    gap: 20px;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
 }
 
 .weather-cards .card {
     color: #fff;
-    padding: 18px 16px;
+    padding: 12px;
     list-style: none;
-    width: calc(100% / 5);
-    background: #6C757D;
+    background: #6c757d98;
     border-radius: 5px;
+    width: auto;
+    height: auto;
 }
+
 
 .weather-cards .card h3 {
     font-size: 1.3rem;
@@ -101,7 +105,32 @@ h3 {
 }
 
 .weather-cards .card img {
-    max-width: 70px;
-    margin: 5px 0 -12px 0;
+    max-width: 100%; 
+    height: auto;    
 }
 
+/* Media Queries for additional responsiveness */
+@media (max-width: 768px) {
+    .days-forecast .weather-cards {
+        flex-direction: column; 
+        gap: 10px; 
+    }
+
+    .weather-cards .card {
+        width: 100%; 
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.5rem; 
+    }
+
+    .days-forecast h2 {
+        font-size: 1.2rem; 
+    }
+
+    .weather-cards .card h3 {
+        font-size: 1.1rem;
+    }
+}
