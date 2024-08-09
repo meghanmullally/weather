@@ -101,7 +101,6 @@ h3 {
 .days-forecast .weather-cards {
     display: flex;
     gap: 10px;
-    /* flex-wrap: wrap; */
     justify-content: space-evenly;
 }
 
@@ -120,6 +119,7 @@ h3 {
     height: auto;   
     background-color: lightsteelblue;
     border-radius: 50%;
+    margin-bottom: 8px;
 }
 
 /* Media Queries for additional responsiveness */
