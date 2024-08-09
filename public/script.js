@@ -62,7 +62,6 @@ async function fetchWeather() {
 
         /* ------ DISPLAY CURRENT WEATHER FORECAST -----------*/
         const currentWeather = data.list[0];
-        console.log("currentWeather", currentWeather);
         weatherDataSection.innerHTML = `
             <div id="current-weather">
                 <div>
@@ -90,7 +89,6 @@ async function fetchWeather() {
         const forecastDays = data.list.filter((_, index) => index % 8 === 0);
 
         forecastDays.forEach((forecast) => {
-            console.log("forecast", forecast);
             const dayCard = document.createElement("li");
             dayCard.className = "card";
             dayCard.innerHTML = `
