@@ -5,6 +5,18 @@ async function fetchWeather() {
 
     /* ------ FETCH API KEY FROM SERVER -----------*/
     const apiKeyResponse = await fetch('/api-key');
+
+      // Error handling for API key fetch
+      if (!apiKeyResponse.ok) {
+        console.error('Error fetching API key:', apiKeyResponse.status);
+        weatherDataSection.innerHTML = `
+            <div>
+                <h2>Error fetching API key. Please try again later.</h2>
+            </div>
+        `;
+        return;
+    }
+
     const apiKeyData = await apiKeyResponse.json();
     const apiKey = apiKeyData.apiKey;
 
@@ -113,7 +125,7 @@ async function fetchWeather() {
     }
 
     document.getElementById("search").value = "";
-    const geocodeData = await getLonAndLat(apiKey); // Pass apiKey here
+    const geocodeData = await getLonAndLat(apiKey);
     if (geocodeData) {
         getWeatherData(geocodeData.lon, geocodeData.lat);
     }
