@@ -4,7 +4,8 @@ async function fetchWeather() {
     weatherDataSection.style.display = "block";
 
     /* ------ FETCH API KEY FROM SERVER -----------*/
-    const apiKeyResponse = await fetch('/api-key');
+    const apiKeyResponse = await fetch('/api/api-key');
+
 
       // Error handling for API key fetch
       if (!apiKeyResponse.ok) {
@@ -57,7 +58,7 @@ async function fetchWeather() {
 
     /* ------ API CALL WEATHER DATA -----------*/
     async function getWeatherData(lon, lat) {
-        const weatherURL = `/weather?city=${encodeURIComponent(searchInput)}`;
+        const weatherURL = `/api/weather?city=${encodeURIComponent(searchInput)}`;
         const response = await fetch(weatherURL);
         if (!response.ok) {
             console.log("Failed to fetch weather data");
