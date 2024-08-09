@@ -19,6 +19,7 @@ main {
     border-radius: 5px;
     padding: 2rem;
     width: 90%;
+    max-width: 1080px;
     margin: auto;
 }
 
