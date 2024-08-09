@@ -64,14 +64,18 @@ async function fetchWeather() {
         const currentWeather = data.list[0];
         console.log("currentWeather", currentWeather);
         weatherDataSection.innerHTML = `
-            <img src="https://openweathermap.org/img/wn/${currentWeather.weather[0].icon}@2x.png" alt="${currentWeather.weather[0].description}"/>
-            <div>
-                <h2>${formatDate(new Date(currentWeather.dt_txt))}</h2>
+            <div id="current-weather">
+                <div>
                 <h2>${data.city.name}</h2>
-                <p><strong>Current Temperature:</strong> ${Math.round(currentWeather.main.temp)}°F</p>
-                <p><strong>Humidity:</strong> ${currentWeather.main.humidity}%</p>
-                <p><strong>Wind:</strong> ${currentWeather.wind.speed} m/s</p>
-                <p><strong>Description:</strong> ${currentWeather.weather[0].description}</p>
+                <h3>${formatDate(new Date(currentWeather.dt_txt))}</h3>
+                <img src="https://openweathermap.org/img/wn/${currentWeather.weather[0].icon}@2x.png" alt="${currentWeather.weather[0].description}"/>
+                </div>
+                <div>
+                    <p><strong>Current Temperature:</strong> ${Math.round(currentWeather.main.temp)}°F</p>
+                    <p><strong>Humidity:</strong> ${currentWeather.main.humidity}%</p>
+                    <p><strong>Wind:</strong> ${currentWeather.wind.speed} m/s</p>
+                    <p><strong>Description:</strong> ${currentWeather.weather[0].description}</p>
+                </div>
             </div>
         `;
 
@@ -90,11 +94,14 @@ async function fetchWeather() {
             const dayCard = document.createElement("li");
             dayCard.className = "card";
             dayCard.innerHTML = `
-                <h3>${formatDate(new Date(forecast.dt_txt))}</h3>
-                <h6>Temp: ${Math.round(forecast.main.temp)}°F</h6>
-                <h6>Humidity: ${forecast.main.humidity}%</h6>
-                <h6>Wind: ${forecast.wind.speed} m/s</h6>
-                <h6>Description: ${forecast.weather[0].description}</h6>
+            <div>
+            <h3>${formatDate(new Date(forecast.dt_txt))}</h3>
+            <img src="https://openweathermap.org/img/wn/${forecast.weather[0].icon}@2x.png" alt="${forecast.weather[0].description}"/>
+            <p><strong>Temp: </strong> ${Math.round(forecast.main.temp)}°F</p>
+            <p><strong>Humidity:</strong> ${forecast.main.humidity}%</p>
+            <p><strong>Wind:</strong> ${forecast.wind.speed} m/s</p>
+            <p><strong>Description:</strong> ${forecast.weather[0].description}</p>
+            </div>
             `;
             weatherCards.appendChild(dayCard);
         });

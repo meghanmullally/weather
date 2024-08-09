@@ -19,7 +19,7 @@ main {
     border-radius: 5px;
     padding: 2rem;
     width: 90%;
-    max-width: 600px;
+    max-width: 1080px;
     margin: auto;
 }
 
@@ -48,7 +48,6 @@ h3 {
     border-radius: 5px;
     padding: 1.5em;
     margin-top: 20px;
-    /* text-align: center; */
 }
 
 #weather-data > img {
@@ -74,6 +73,25 @@ h3 {
     cursor: pointer;
 }
 
+#current-weather {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;   
+    gap: 20px;             
+}
+
+#current-weather > div {
+    flex: 1;               
+    min-width: 0;         
+}
+
+#current-weather img {
+    max-width: 100%;       
+    height: auto; 
+    background-color: lightsteelblue;
+    border-radius: 50%;         
+}
+
 .days-forecast h2 {
     flex-wrap: wrap;
     justify-content: center;
@@ -84,29 +102,25 @@ h3 {
 .days-forecast .weather-cards {
     display: flex;
     gap: 10px;
-    flex-wrap: wrap;
     justify-content: space-evenly;
 }
 
 .weather-cards .card {
-    color: #fff;
     padding: 12px;
     list-style: none;
-    background: #6c757d98;
+    border: 2px solid;
+    border-color: #6c757d98;
     border-radius: 5px;
     width: auto;
     height: auto;
 }
 
-
-.weather-cards .card h3 {
-    font-size: 1.3rem;
-    font-weight: 600;
-}
-
 .weather-cards .card img {
     max-width: 100%; 
-    height: auto;    
+    height: auto;   
+    background-color: lightsteelblue;
+    border-radius: 50%;
+    margin-bottom: 8px;
 }
 
 /* Media Queries for additional responsiveness */
