@@ -19,6 +19,10 @@ app.get('/weather', async (req, res) => {
     const city = req.query.city;
     const apiKey = process.env.WEATHER_API_KEY;
 
+    if (!apiKey) {
+        console.error("API key is missing. Please set the WEATHER_API_KEY environment variable.");
+    }
+
     if (!city) {
         return res.status(400).send({ error: 'City is required' });
     }
