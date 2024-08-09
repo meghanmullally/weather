@@ -11,10 +11,10 @@ const app = express();
 app.use(express.static('public'));
 
 // Route to fetch API key
-app.get('/api-key', apiKeyHandler); // Use the imported handler
+app.get('/api-key', apiKeyHandler);
 
 // Route to fetch weather data
-app.get('/weather', weatherHandler); // Use the imported weather handler
+app.get('/weather', weatherHandler);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

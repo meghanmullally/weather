@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 export default function handler(req, res) {
+    console.log('API key endpoint hit');
     const apiKey = process.env.WEATHER_API_KEY;
 
     if (!apiKey) {
